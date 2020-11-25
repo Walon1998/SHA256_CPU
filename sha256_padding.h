@@ -31,7 +31,7 @@ std::vector<uint32_t> sha256_padding(const std::string &in) {
         const int newlength = in.length() + k + 1 + 8; // new lenngth in uint8
         std::vector<uint32_t> out(newlength / 4);
 
-        memcpy(out.data(), in.data(), in.length() * sizeof(char)); // copy existing data
+        std::memcpy(out.data(), in.data(), in.length() * sizeof(char)); // copy existing data
 
     // Write leading 1
     auto *start_point = (uint8_t *) out.data();

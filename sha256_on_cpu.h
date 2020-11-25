@@ -36,7 +36,7 @@ std::string sha256_on_cpu(const std::string &in, const bool benchmark = false) {
             sha256_kernel_cpu(padded.data(), result.data(), padded.size());
         }
 
-        std::ofstream file("..//Result/CPU_" + std::to_string(in.size()) + ".txt");
+        std::ofstream file("../Result/CPU_" + std::to_string(in.size()) + ".txt");
         for (int i = 0; i < 100; i++) {
             auto start = std::chrono::high_resolution_clock::now();
 
@@ -98,7 +98,7 @@ void sha256_on_cpu_test() {
 
 void sha256_on_cpu_bench() {
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 9; i++) {
         std::cout << std::pow(10, i) << std::endl;
         sha256_on_cpu(std::string(std::pow(10, i), 'a'), true);
     }

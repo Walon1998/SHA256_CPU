@@ -7,6 +7,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cassert>
+#include <cstring>
 
 // Padding is performed on cpu
 

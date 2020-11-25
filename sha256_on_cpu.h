@@ -11,7 +11,7 @@
 #include "sha256_kernel_cpu.h"
 #include <chrono>
 #include <iostream>
-#include <cmath
+#include <cmath>
 #include <fstream>
 
 // return vector is currently passed by value, could be optimized

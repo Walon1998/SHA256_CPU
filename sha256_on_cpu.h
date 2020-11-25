@@ -9,22 +9,47 @@
 #include <string>
 #include "sha256_padding.h"
 #include "sha256_kernel_cpu.h"
+#include <chrono>
+#include <iostream>
+#include <fstream>
 
 // return vector is currently passed by value, could be optimized
-std::string sha256_on_cpu(const std::string &in) {
+std::string sha256_on_cpu(const std::string &in, const bool benchmark = false) {
 
     // 1. Padding
     std::vector<uint32_t> padded = sha256_padding(in);
 
     // 2. Change byte ordering since SHA-256 uses big endian byte ordering
     // This is only necessary to get the same result as other implementations
-    for (unsigned int & i : padded) {
+    for (unsigned int &i : padded) {
         i = _byteswap_ulong(i);
     }
 
-    // 2. Nain Loop cpu
+    // 2. Main Loop cpu
     std::vector<uint32_t> result(8);
     sha256_kernel_cpu(padded.data(), result.data(), padded.size());
+
+
+    if (benchmark) {
+        for (int i = 0; i < 10; i++) {
+            sha256_kernel_cpu(padded.data(), result.data(), padded.size());
+        }
+
+        std::ofstream file("..//Result/CPU_" + std::to_string(in.size()) + ".txt");
+        for (int i = 0; i < 100; i++) {
+            auto start = std::chrono::high_resolution_clock::now();
+
+            sha256_kernel_cpu(padded.data(), result.data(), padded.size());
+
+            auto stop = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+            file << duration.count() << std::endl;
+
+        }
+
+        file.close();
+
+    }
 
     // 3. Convert Result to String
     std::string res_string;
@@ -67,6 +92,15 @@ void sha256_on_cpu_test() {
     out = sha256_on_cpu("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
     assert(out == "cd372fb85148700fa88095e3492d3f9f5beb43e555e5ff26d95f5a6adc36f8e6");
 
+
+}
+
+void sha256_on_cpu_bench() {
+
+    for (int i = 0; i < 8; i++) {
+        std::cout << std::pow(10, i) << std::endl;
+        sha256_on_cpu(std::string(std::pow(10, i), 'a'), true);
+    }
 
 }
 

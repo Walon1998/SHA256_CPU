@@ -31,12 +31,14 @@ std::string sha256_on_cpu(const std::string &in, const bool benchmark = false) {
     sha256_kernel_cpu(padded.data(), result.data(), padded.size());
 
 
+    // Write Benchmarks to file
     if (benchmark) {
+        std::ofstream file("../Result/CPU_" + std::to_string(in.size()) + ".txt");
         for (int i = 0; i < 10; i++) {
             sha256_kernel_cpu(padded.data(), result.data(), padded.size());
         }
 
-        std::ofstream file("../Result/CPU_" + std::to_string(in.size()) + ".txt");
+
         for (int i = 0; i < 100; i++) {
             auto start = std::chrono::high_resolution_clock::now();
 
@@ -65,12 +67,6 @@ std::string sha256_on_cpu(const std::string &in, const bool benchmark = false) {
 }
 
 void sha256_on_cpu_test() {
-
-//    std::vector<std::string> vec = {"abc", "", "Neville", "Basil", "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"};
-
-//    for(auto &i: vec){
-//    std::cout << i << ": " << sha256_on_cpu(i) << std::endl;
-//    }
 
 
     std::string out = sha256_on_cpu("abc");

@@ -5,9 +5,7 @@
 #ifndef SHA_ON_GPU_SHA256_KERNEL_CPU_H
 #define SHA_ON_GPU_SHA256_KERNEL_CPU_H
 
-#include "choose.h"
-#include "majority.h"
-#include "sigma.h"
+#include "helper.h"
 #include <vector>
 
 void sha256_kernel_cpu(const uint32_t * __restrict in, uint32_t * __restrict  result, const int N) {

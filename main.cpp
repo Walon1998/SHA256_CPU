@@ -4,7 +4,6 @@
 
 int main() {
     sha256_on_cpu_test();
-    sha256_on_cpu_bench();
-//    std::cout << "Hello, World!" << std::endl;
+//    sha256_on_cpu_bench();
     return 0;
 }

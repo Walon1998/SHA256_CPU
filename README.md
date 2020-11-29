@@ -1,1 +1,2 @@
-Naive SHA_256 Implementation on CPU
+# SHA_256 Implementation on CPU
+No guarantee for correctness

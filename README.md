@@ -1,1 +1,1 @@
-SHA_256 Benchmarking on CPU
+Naive SHA_256 Implementation on CPU

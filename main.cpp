@@ -1,5 +1,4 @@
 
-#include <iostream>
 #include "sha256_on_cpu.h"
 
 int main() {
